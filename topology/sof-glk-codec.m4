@@ -22,27 +22,27 @@ include(`platform/intel/dmic.m4')
 # Define the pipelines
 #
 # PCM0 <---- volume <----- DMIC0 (dmic capture)
-# PCM1 ----> volume -----> SSP1 (speaker - maxim98357a)
-# PCM2 ----> volume -----> SSP2 (headset - da7219)
+# PCM0 ----> volume -----> SSP1 (speaker - maxim98357a)
+# PCM1 ----> volume -----> SSP2 (headset - da7219)
 #
 
 # Low Latency capture pipeline 1 on PCM 0 using max 4 channels of s32le.
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
-PIPELINE_PCM_DAI_ADD(sof/pipe-volume-capture.m4,
+PIPELINE_PCM_ADD(sof/pipe-volume-capture.m4,
 	1, 0, 4, s32le,
-	48, 1000, 0, 0, DMIC, 0, s32le, 2)
+	48, 1000, 0, 0)
 
-# Low Latency playback pipeline 2 on PCM 1 using max 2 channels of s16le.
+# Low Latency playback pipeline 2 on PCM 0 using max 2 channels of s16le.
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
-PIPELINE_PCM_DAI_ADD(sof/pipe-volume-playback.m4,
-	2, 1, 2, s16le,
-	48, 1000, 0, 0, SSP, 1, s16le, 2)
+PIPELINE_PCM_ADD(sof/pipe-volume-playback.m4,
+	2, 0, 2, s16le,
+	48, 1000, 0, 0)
 
-# Low Latency playback pipeline 3 on PCM 2 using max 2 channels of s16le.
+# Low Latency playback pipeline 3 on PCM 1 using max 2 channels of s16le.
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
-PIPELINE_PCM_DAI_ADD(sof/pipe-volume-playback.m4,
-	3, 2, 2, s16le,
-	48, 1000, 0, 0, SSP, 2, s16le, 2)
+PIPELINE_PCM_ADD(sof/pipe-volume-playback.m4,
+	3, 1, 2, s16le,
+	48, 1000, 0, 0)
 
 #
 # DAIs configuration
@@ -69,10 +69,10 @@ DAI_ADD(sof/pipe-dai-playback.m4,
 	PIPELINE_SOURCE_3, 2, s16le,
 	48, 1000, 0, 0)
 
-# PCM
+# PCM (PCM_CAPTURE_ADD(name, pipeline, pcm_id, dai_id, capture))
 PCM_CAPTURE_ADD(DMIC0, 1, 0, 0, PIPELINE_PCM_1)
-PCM_PLAYBACK_ADD(SSP1, 2, 1, 1, PIPELINE_PCM_2)
-PCM_PLAYBACK_ADD(SSP2, 3, 2, 2, PIPELINE_PCM_3)
+PCM_PLAYBACK_ADD(SSP1, 2, 0, 1, PIPELINE_PCM_2)
+PCM_PLAYBACK_ADD(SSP2, 3, 1, 2, PIPELINE_PCM_3)
 
 #
 # BE configurations - overrides config in ACPI if present
