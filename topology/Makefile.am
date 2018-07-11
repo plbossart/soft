@@ -67,3 +67,8 @@ EXTRA_DIST = \
 	sof-apl-pcm512x.m4 \
 	sof-glk-codec.m4 \
 	sof-icl-nocodec.m4
+
+bin_PROGRAMS = tplg_graph
+
+tplg_graph_SOURCES = \
+	parse_topology.c
