@@ -71,9 +71,9 @@ DAI_ADD(sof/pipe-dai-playback.m4,
 
 # FIXME: Why is this needed? And is this correct?
 # PCM (PCM_CAPTURE_ADD(name, pipeline, pcm_id, dai_id, capture))
-#PCM_CAPTURE_ADD(DMIC0, 1, 0, 0, PIPELINE_PCM_1)
-#PCM_PLAYBACK_ADD(SSP5, 2, 0, 5, PIPELINE_PCM_2)
-#PCM_PLAYBACK_ADD(SSP1, 3, 1, 1, PIPELINE_PCM_3)
+PCM_CAPTURE_ADD(DMIC0, 1, 0, 0, PIPELINE_PCM_1)
+PCM_PLAYBACK_ADD(SSP5, 2, 0, 5, PIPELINE_PCM_2)
+PCM_PLAYBACK_ADD(SSP1, 3, 1, 1, PIPELINE_PCM_3)
 
 #
 # BE configurations - overrides config in ACPI if present
