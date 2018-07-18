@@ -38,12 +38,11 @@ PIPELINE_PCM_ADD(sof/pipe-volume-playback.m4,
 	2, 1, 2, s32le,
 	48, 1000, 0, 0)
 
-# # Low Latency capture pipeline 3 on PCM 0 using max 4 channels of s32le.
-# # Schedule 48 frames per 1000us deadline on core 0 with priority 0
-# PIPELINE_PCM_ADD(sof/pipe-volume-capture.m4,
+# Low Latency capture pipeline 3 on PCM 0 using max 4 channels of s32le.
+# Schedule 48 frames per 1000us deadline on core 0 with priority 0
+#PIPELINE_PCM_ADD(sof/pipe-volume-capture.m4,
 # 	3, 0, 4, s32le,
 # 	48, 1000, 0, 0)
-
 
 #
 # DAIs configuration
@@ -63,10 +62,10 @@ DAI_ADD(sof/pipe-dai-playback.m4,
 	PIPELINE_SOURCE_2, 2, s16le,
 	48, 1000, 0, 0)
 
-# # capture DAI is DMIC0 using 2 periods
-# # Buffers use s16le format, with 48 frame per 1000us on core 0 with priority 0
-# DAI_ADD(sof/pipe-dai-capture.m4,
-# 	3, DMIC, 0, DMIC0,
+# capture DAI is DMIC0 using 2 periods
+# Buffers use s16le format, with 48 frame per 1000us on core 0 with priority 0
+#DAI_ADD(sof/pipe-dai-capture.m4,
+# 	3, DMIC, 0, dmic01,
 # 	PIPELINE_SINK_3, 2, s32le,
 # 	48, 1000, 0, 0)
 
@@ -79,8 +78,7 @@ DAI_ADD(sof/pipe-dai-playback.m4,
 
 PCM_PLAYBACK_ADD(SSP5, 0, 0, 0, PIPELINE_PCM_1)
 PCM_PLAYBACK_ADD(SSP1, 1, 1, 1, PIPELINE_PCM_2)
-
-#PCM_CAPTURE_ADD(DMIC0, 2, 2, 2, PIPELINE_PCM_3)
+#PCM_CAPTURE_ADD(dmic01, 2, 2, 2, PIPELINE_PCM_3)
 
 #
 # BE configurations - overrides config in ACPI if present
@@ -104,9 +102,9 @@ DAI_CONFIG(SSP, 1, 1, SSP1-Codec,
 		SSP_TDM(2, 16, 3, 3),
 		SSP_CONFIG_DATA(SSP, 1, 16, 0)))
 
-# # FIXME: the machine driver uses .name = "dmic01" and .id=2
-# # DMIC0 (id: 2)
-# DAI_CONFIG(DMIC, 0, 2, dmic01,
-# 	DMIC_CONFIG(1, 500000, 4800000, 40, 60, 48000,
-# 		DMIC_WORD_LENGTH(s32le), DMIC, 0,
-# 		PDM_CONFIG(DMIC, 0, FOUR_CH_PDM0_PDM1)))
+# FIXME: the machine driver uses .name = "dmic01" and .id=2
+# dmic01 (id: 2)
+#DAI_CONFIG(DMIC, 0, 2, dmic01,
+#  	DMIC_CONFIG(1, 500000, 4800000, 40, 60, 48000,
+#  		DMIC_WORD_LENGTH(s32le), DMIC, 0,
+#  		PDM_CONFIG(DMIC, 0, FOUR_CH_PDM0_PDM1)))
