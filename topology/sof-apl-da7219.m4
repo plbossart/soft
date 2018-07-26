@@ -44,11 +44,12 @@ PIPELINE_PCM_ADD(sof/pipe-volume-capture.m4,
 	3, 1, 2, s32le,
 	48, 1000, 0, 0)
 
-# Low Latency capture pipeline 3 on PCM 0 using max 4 channels of s32le.
+# Low Latency capture pipeline 4 on PCM 0 using max 4 channels of s32le.
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
 #PIPELINE_PCM_ADD(sof/pipe-volume-capture.m4,
-# 	3, 0, 4, s32le,
-# 	48, 1000, 0, 0)
+PIPELINE_PCM_ADD(sof/pipe-passthrough-capture.m4,
+	4, 0, 4, s32le,
+	48, 1000, 0, 0)
 
 #
 # DAIs configuration
@@ -77,15 +78,14 @@ DAI_ADD(sof/pipe-dai-capture.m4,
 
 # capture DAI is DMIC0 using 2 periods
 # Buffers use s16le format, with 48 frame per 1000us on core 0 with priority 0
-#DAI_ADD(sof/pipe-dai-capture.m4,
-# 	3, DMIC, 0, dmic01,
-# 	PIPELINE_SINK_3, 2, s32le,
-# 	48, 1000, 0, 0)
+DAI_ADD(sof/pipe-dai-capture.m4,
+	4, DMIC, 0, dmic01,
+	PIPELINE_SINK_4, 2, s32le,
+	48, 1000, 0, 0)
 
 PCM_PLAYBACK_ADD(Speakers, 0, PIPELINE_PCM_1)
 PCM_DUPLEX_ADD(Headset, 1, PIPELINE_PCM_2, PIPELINE_PCM_3)
-
-#PCM_CAPTURE_ADD(dmic01, 2, 2, 2, PIPELINE_PCM_3)
+PCM_CAPTURE_ADD(DMIC01, 0, PIPELINE_PCM_4)
 
 #
 # BE configurations - overrides config in ACPI if present
@@ -111,7 +111,9 @@ DAI_CONFIG(SSP, 1, 1, SSP1-Codec,
 
 # FIXME: the machine driver uses .name = "dmic01" and .id=2
 # dmic01 (id: 2)
-#DAI_CONFIG(DMIC, 0, 2, dmic01,
-#  	DMIC_CONFIG(1, 500000, 4800000, 40, 60, 48000,
-#  		DMIC_WORD_LENGTH(s32le), DMIC, 0,
-#  		PDM_CONFIG(DMIC, 0, FOUR_CH_PDM0_PDM1)))
+DAI_CONFIG(DMIC, 0, 2, dmic01,
+	DMIC_CONFIG(1, 500000, 4800000, 40, 60, 48000,
+		DMIC_WORD_LENGTH(s32le), DMIC, 0,
+		# FIXME: what is the right configuration
+		# PDM_CONFIG(DMIC, 0, FOUR_CH_PDM0_PDM1)))
+		PDM_CONFIG(DMIC, 0, STEREO_PDM0)))
