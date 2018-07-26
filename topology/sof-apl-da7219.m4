@@ -69,37 +69,8 @@ DAI_ADD(sof/pipe-dai-playback.m4,
 # 	PIPELINE_SINK_3, 2, s32le,
 # 	48, 1000, 0, 0)
 
-
-# FIXME: Why is this needed? And is this correct?
-# PCM (PCM_CAPTURE_ADD(name, pipeline, pcm_id, dai_id, capture))
-
-# this was used on for sof-apl-pcm512x, no idea why there are two pipelines
-# PCM_PLAYBACK_ADD(Port5, 0, 0, 0, PIPELINE_PCM_1, PIPELINE_PCM_2)
-
-#dnl PCM_PLAYBACK_ADD(name, pipeline, pcm_id, dai_id, playback)
-# pipeline value does not seem to matter at all.
-# pcm_id and dai_id have to be identical
-
-# works fine when playing no hw:0,80 and hw:0,90...
-#PCM_PLAYBACK_ADD(Speakers, 80, 80, 80, PIPELINE_PCM_1)
-#PCM_PLAYBACK_ADD(Headset, 90, 90, 90, PIPELINE_PCM_2)
-
-# fails with kernel crash + reboot when playing on PCM0
-#PCM_PLAYBACK_ADD(Speakers, 0, 0, 998, PIPELINE_PCM_1)
-#PCM_PLAYBACK_ADD(Headset, 1, 1, 999, PIPELINE_PCM_2)
-
-# fails with kernel crash + reboot when playing on PCM0
-#PCM_PLAYBACK_ADD(Speakers, 0, 0, 1, PIPELINE_PCM_1)
-#PCM_PLAYBACK_ADD(Headset, 1, 1, 2, PIPELINE_PCM_2)
-
-# works fine when playing on hw:0,1 and hw:0,1
-#PCM_PLAYBACK_ADD(Speakers, 999, 0, 0, PIPELINE_PCM_1)
-#PCM_PLAYBACK_ADD(Headset, 999, 1, 1, PIPELINE_PCM_2)
-
-# works fine when playing on hw:0,80 and hw:0,90
-#PCM_PLAYBACK_ADD(Speakers, 999, 80, 80, PIPELINE_PCM_1)
-#PCM_PLAYBACK_ADD(Headset, 999, 90, 90, PIPELINE_PCM_2)
-
+PCM_PLAYBACK_ADD(Speakers, 0, PIPELINE_PCM_1)
+PCM_PLAYBACK_ADD(Headset, 1, PIPELINE_PCM_2)
 
 #PCM_CAPTURE_ADD(dmic01, 2, 2, 2, PIPELINE_PCM_3)
 
