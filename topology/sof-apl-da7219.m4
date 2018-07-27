@@ -48,7 +48,7 @@ PIPELINE_PCM_ADD(sof/pipe-volume-capture.m4,
 # Schedule 48 frames per 1000us deadline on core 0 with priority 0
 #PIPELINE_PCM_ADD(sof/pipe-volume-capture.m4,
 PIPELINE_PCM_ADD(sof/pipe-passthrough-capture.m4,
-	4, 0, 4, s32le,
+	4, 2, 4, s32le,
 	48, 1000, 0, 0)
 
 #
@@ -85,7 +85,7 @@ DAI_ADD(sof/pipe-dai-capture.m4,
 
 PCM_PLAYBACK_ADD(Speakers, 0, PIPELINE_PCM_1)
 PCM_DUPLEX_ADD(Headset, 1, PIPELINE_PCM_2, PIPELINE_PCM_3)
-PCM_CAPTURE_ADD(DMIC01, 0, PIPELINE_PCM_4)
+PCM_CAPTURE_ADD(DMIC01, 2, PIPELINE_PCM_4)
 
 #
 # BE configurations - overrides config in ACPI if present
