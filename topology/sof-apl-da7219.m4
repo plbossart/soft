@@ -92,21 +92,21 @@ PCM_CAPTURE_ADD(DMIC01, 99, PIPELINE_PCM_4)
 #
 
 # FIXME: the machine driver uses .name = "SSP5-Codec", .id=0, .cpu_name="SSP5 Pin"
-#SSP 5 (ID: 0) with 24.576 MHz mclk with MCLK_ID 0
+#SSP 5 (ID: 0) with 19.2 MHz mclk with MCLK_ID 0 (unused), 1.536 MHz blck
 DAI_CONFIG(SSP, 5, 0, SSP5-Codec,
-	SSP_CONFIG(I2S, SSP_CLOCK(mclk, 24576000, codec_mclk_in),
+	SSP_CONFIG(I2S, SSP_CLOCK(mclk, 19200000, codec_mclk_in),
 		SSP_CLOCK(bclk, 1536000, codec_slave),
 		SSP_CLOCK(fsync, 48000, codec_slave),
 		SSP_TDM(2, 16, 3, 3),
 		SSP_CONFIG_DATA(SSP, 5, 16, 0)))
 
 # FIXME: the machine driver uses .name = "SSP1-Codec", .id=1, .cpu_name="SSP1 Pin"
-#SSP 1 (ID: 1) with 24.576 MHz mclk with MCLK_ID 0
+#SSP 1 (ID: 1) with 19.2 MHz mclk with MCLK_ID 0, 1.92 MHz bclk
 DAI_CONFIG(SSP, 1, 1, SSP1-Codec,
-	SSP_CONFIG(I2S, SSP_CLOCK(mclk, 24576000, codec_mclk_in),
-		SSP_CLOCK(bclk, 1536000, codec_slave),
+	SSP_CONFIG(I2S, SSP_CLOCK(mclk, 19200000, codec_mclk_in),
+		SSP_CLOCK(bclk, 1920000, codec_slave),
 		SSP_CLOCK(fsync, 48000, codec_slave),
-		SSP_TDM(2, 16, 3, 3),
+		SSP_TDM(2, 20, 3, 3),
 		SSP_CONFIG_DATA(SSP, 1, 16, 0)))
 
 # FIXME: the machine driver uses .name = "dmic01" and .id=2
