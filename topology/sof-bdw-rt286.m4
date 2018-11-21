@@ -47,11 +47,11 @@ PIPELINE_PCM_ADD(sof/pipe-pcm-media.m4,
 	3, 1, 2, s32le,
 	96, 2000, 1, 0)
 
-# Tone Playback pipeline 5 using max 2 channels of s32le.
-# Schedule 192 frames per 4000us deadline on core 0 with priority 2
-PIPELINE_ADD(sof/pipe-tone.m4,
-	5, 2, s32le,
-	192, 4000, 2, 0)
+# # Tone Playback pipeline 5 using max 2 channels of s32le.
+# # Schedule 192 frames per 4000us deadline on core 0 with priority 2
+# PIPELINE_ADD(sof/pipe-tone.m4,
+# 	5, 2, s32le,
+# 	192, 4000, 2, 0)
 
 # Connect pipelines together
 SectionGraph."pipe-bdw-rt286" {
@@ -60,8 +60,8 @@ SectionGraph."pipe-bdw-rt286" {
 	lines [
 		# media 0
 		dapm(PIPELINE_MIXER_1, PIPELINE_SOURCE_3)
-		#tone
-		dapm(PIPELINE_MIXER_1, PIPELINE_SOURCE_5)
+		# #tone
+		# dapm(PIPELINE_MIXER_1, PIPELINE_SOURCE_5)
 	]
 }
 
